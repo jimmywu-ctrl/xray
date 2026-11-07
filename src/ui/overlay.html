@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; connect-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <title>X-ray</title>
+  <link rel="stylesheet" href="overlay.css?v=20261102-avatar-fix" />
+<link rel="stylesheet" href="/porcelain.css?v=20261102" /><link rel="icon" type="image/png" href="/assets/xray-logo.png?v=20261102" /><link rel="stylesheet" href="/precision.css?v=20261102-labels" /><link rel="stylesheet" href="/dark.css?v=20261103" /><link rel="stylesheet" href="/obsidian.css?v=20261103-console" /></head>
+<body class="xray-overlay">
+  <div id="panel">
+    <div class="hud-fx" aria-hidden="true">
+      <div class="hud-grid"></div>
+      <div class="hud-scan"></div>
+      <div class="hud-edge"></div>
+      <div class="hud-corner"></div>
+      <div class="hud-corner bl"></div>
+    </div>
+
+    <header id="hdr" class="hdr">
+      <div class="hdr-left">
+        <div class="logo" aria-hidden="true"><img src="assets/xray-logo.png" alt="" /></div>
+        <div class="hdr-text">
+          <div class="title-line">
+            <div class="title">X-ray</div>
+            <span class="live-status"><span id="sub-dot" class="dot amber"></span><span id="live-label">连接中</span></span>
+          </div>
+          <div class="subtitle">
+            <span id="subtitle" class="sub-label"></span>
+          </div>
+        </div>
+      </div>
+      <div class="hdr-right">
+        <time id="hud-clock" class="hud-clock"></time>
+        <div id="eq" class="eq" hidden aria-hidden="true">
+          <i></i><i></i><i></i><i></i>
+        </div>
+        <button type="button" id="btn-hide" class="hdr-hide" title="收起为悬浮图标" aria-label="收起为悬浮图标">
+          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="m5 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <button type="button" id="collapsed-logo" class="collapsed-logo" hidden title="展开 X-ray 监控窗" aria-label="展开 X-ray 监控窗">
+      <img src="assets/xray-logo.png" alt="" aria-hidden="true" />
+    </button>
+
+    <div class="search-wrap">
+      <div class="search">
+        <svg class="search-ico" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+          <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input id="search" type="text" spellcheck="false" autocomplete="off" />
+        <span id="search-count" class="search-count" hidden></span>
+        <button type="button" id="search-clear" class="search-clear" hidden title="clear">x</button>
+      </div>
+    </div>
+    <div id="ca-query" class="ca-query" hidden>
+      <div class="ca-query-row">
+        <select id="ca-query-chain" aria-label="选择链">
+          <option value="">先选链</option><option value="sol">Solana</option><option value="bsc">BSC</option>
+          <option value="eth">Ethereum</option><option value="base">Base</option><option value="arbitrum">Arbitrum</option>
+          <option value="optimism">Optimism</option><option value="polygon">Polygon</option><option value="robinhood">Robinhood</option>
+          <option value="xlayer">X Layer</option><option value="avalanche">Avalanche</option><option value="monad">Monad</option><option value="giwa">Giwa</option>
+        </select>
+        <button id="ca-query-run" type="button" class="ca-query-run">AVE 查询</button>
+      </div>
+      <div id="ca-query-status" class="ca-query-status" role="status">输入完整 CA 并选择链。</div>
+      <button id="ca-query-pair" type="button" class="ca-query-pair" hidden>连接 / 配对脚本猫</button>
+      <div id="ca-query-result" class="ca-query-result" hidden>
+        <div class="ca-query-title" id="ca-query-title"></div>
+        <div class="ca-query-fields">
+          <div><small>价格</small><b id="ca-query-price"></b></div>
+          <div><small>市值</small><b id="ca-query-mc"></b></div>
+          <div><small>流动性</small><b id="ca-query-liquidity"></b></div>
+          <div><small>持有人</small><b id="ca-query-holders"></b></div>
+        </div>
+        <div id="ca-query-time" class="ca-query-time"></div>
+        <div id="ca-query-warning" class="ca-query-warning" hidden></div>
+      </div>
+    </div>
+
+    <div class="cols" id="cols">
+      <span class="c-left"></span>
+      <span class="c-trend">走势</span>
+      <button type="button" id="sort-multiple" class="c-mid sort-multiple" aria-pressed="false"></button>
+      <span class="c-right"></span>
+    </div>
+
+    <div id="list" class="list"></div>
+    <div id="empty" class="empty"></div>
+
+    <footer class="footer">
+      <div class="ft-left">
+        <span id="ft-dot" class="dot amber"></span>
+        <span id="ft-link"></span>
+      </div>
+      <div class="ft-mid">
+        <button type="button" id="btn-muted" class="ft-btn ft-muted" title="已屏蔽问题代币" aria-label="已屏蔽问题代币">
+          <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 1.5 13.5 3.7v3.1c0 3.2-2.1 5.9-5.5 7.6-3.4-1.7-5.5-4.4-5.5-7.6V3.7L8 1.5Z" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/></svg>
+          <span id="muted-label">屏蔽 0</span>
+        </button>
+        <div id="muted-menu" class="backfill-popover muted-popover" role="dialog" aria-label="已屏蔽代币" hidden>
+          <div class="backfill-popover-title">已屏蔽代币</div>
+          <div id="muted-list" class="muted-list"></div>
+          <div id="muted-status" class="backfill-status">恢复后只接收新喊单，已删除的历史不会恢复。</div>
+        </div>
+        <button type="button" id="btn-settings" class="ft-btn" title="settings">
+          <svg viewBox="0 0 16 16" width="12" height="12"><path d="M2 4.5h12M4 8h8M6 11.5h4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </footer>
+
+    <div id="overlay-toast" class="overlay-toast" role="status" aria-live="polite" hidden></div>
+
+    <div id="label-modal" class="label-modal" hidden>
+      <div class="label-modal-backdrop" id="label-modal-backdrop"></div>
+      <div class="label-modal-card" role="dialog" aria-modal="true">
+        <div class="label-modal-hd" id="label-modal-hd"></div>
+        <div class="label-modal-raw-wrap">
+          <span class="label-modal-raw-k" id="label-modal-raw-k"></span>
+          <span class="label-modal-raw-v" id="label-modal-raw-v"></span>
+        </div>
+        <input id="label-modal-input" class="label-modal-input" type="text" spellcheck="false" autocomplete="off" />
+        <div id="label-modal-error" class="label-modal-error" role="status" hidden></div>
+        <div class="label-modal-actions">
+          <button type="button" id="label-modal-save" class="label-modal-btn primary"></button>
+          <button type="button" id="label-modal-clear" class="label-modal-btn"></button>
+          <button type="button" id="label-modal-cancel" class="label-modal-btn ghost"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/ui-bridge.js?v=20261103-epoch"></script><script src="overlay.js?v=20261102-performance-three"></script>
+</body>
+</html>
+
+
+

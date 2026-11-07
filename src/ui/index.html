@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>X-ray · 控制台</title>
+
+
+
+<link rel="stylesheet" href="/legacy-dashboard.css" /><link rel="stylesheet" href="/modules/modules.css" /><link rel="stylesheet" href="/porcelain.css?v=20261102" /><link rel="icon" type="image/png" href="/assets/xray-logo.png?v=20261102" /><link rel="stylesheet" href="/precision.css?v=20261102-labels" /><link rel="stylesheet" href="/dark.css?v=20261103" /><link rel="stylesheet" href="/obsidian.css?v=20261103-console" /></head>
+<body class="xray-dashboard">
+<aside>
+  <div class="brand"><div class="badge"><img src="/assets/xray-logo.png?v=20261102" alt="" aria-hidden="true"></div><b>X-ray</b></div>
+  <div class="grp">主要</div>
+  <nav>
+    <button data-tab="overview" class="on" title="总览" aria-label="总览"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>总览</button>
+    <button data-tab="groups" title="监听管理" aria-label="监听管理"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>监听管理</button>
+    <button data-tab="stats" title="喊单统计" aria-label="喊单统计"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-5 4 3 5-7"/></svg>喊单统计</button>
+    <button data-tab="audit" title="代币数据库" aria-label="代币数据库"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7.5 10.5h6M10.5 7.5v6"/></svg>代币数据库</button>
+  </nav>
+  <div class="grp">设置</div>
+  <nav>
+    <button data-tab="settings" title="设置与日志" aria-label="设置与日志"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>设置与日志</button>
+  </nav>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div class="crumb">X-ray / <b id="crumb">总览</b></div>
+    <div class="right"><span class="top-status" id="foot">监听中</span><span id="clock"></span></div>
+  </div>
+  <div class="content">
+  <div id="task-health" class="card" role="status" aria-live="polite" hidden style="padding:12px 16px;margin-bottom:16px;font-size:12px"></div>
+  <div id="work-status" class="work-status" aria-live="polite" hidden>
+    <div class="work-status-heading"><b id="work-status-summary">后台数据任务</b><span class="work-status-count" id="work-status-count"></span></div>
+    <div class="work-status-list" id="work-status-list"></div>
+  </div>
+
+  <section id="overview" class="on">
+    <div class="overview-toolbar">
+      <div class="seg page-subs" id="ov-subs" role="tablist" aria-label="总览子页">
+        <button type="button" data-sub="summary" class="on" role="tab" aria-selected="true">摘要</button>
+        <button type="button" data-sub="battle" role="tab" aria-selected="false">24h 战况</button>
+      </div>
+      <div class="overview-source-filter" aria-label="喊单群组">
+        <select id="ov-group" aria-label="筛选首喊所在群"><option value="">全部群</option></select>
+      </div>
+    </div>
+    
+    <div id="ov-summary" class="subpanel on" role="tabpanel">
+      <div class="page-h">
+        <div><h1>喊单表现总览</h1><p id="ov-sub">—</p></div>
+      </div>
+      <div class="overview-simple">
+        <div class="card kpi"><img class="hall-stat-icon" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZwogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB3aWR0aD0iMjQiCiAgaGVpZ2h0PSIyNCIKICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgZmlsbD0ibm9uZSIKICBzdHJva2U9IiMxNjZiNjAiCiAgc3Ryb2tlLXdpZHRoPSIyIgogIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICBzdHJva2UtbGluZWpvaW49InJvdW5kIgo+CiAgPHBhdGggZD0iTTYgMjJhMiAyIDAgMCAxLTItMlY0YTIgMiAwIDAgMSAyLTJoOGEyLjQgMi40IDAgMCAxIDEuNzA0LjcwNmwzLjU4OCAzLjU4OEEyLjQgMi40IDAgMCAxIDIwIDh2MTJhMiAyIDAgMCAxLTIgMnoiIC8+CiAgPHBhdGggZD0iTTE0IDJ2NWExIDEgMCAwIDAgMSAxaDUiIC8+CiAgPHBhdGggZD0iTTggMTh2LTEiIC8+CiAgPHBhdGggZD0iTTEyIDE4di02IiAvPgogIDxwYXRoIGQ9Ik0xNiAxOHYtMyIgLz4KPC9zdmc+Cg=="><div class="lab">有效喊单记录</div><div class="val" id="k-calls">—</div><div class="sub" id="k-calls-sub">—</div></div>
+        <div class="card kpi"><img class="hall-stat-icon" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZwogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB3aWR0aD0iMjQiCiAgaGVpZ2h0PSIyNCIKICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgZmlsbD0ibm9uZSIKICBzdHJva2U9IiMxNjZiNjAiCiAgc3Ryb2tlLXdpZHRoPSIyIgogIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICBzdHJva2UtbGluZWpvaW49InJvdW5kIgo+CiAgPHBhdGggZD0iTTUgMjF2LTYiIC8+CiAgPHBhdGggZD0iTTEyIDIxVjkiIC8+CiAgPHBhdGggZD0iTTE5IDIxVjMiIC8+Cjwvc3ZnPgo="><div class="lab">可计算倍数</div><div class="val" id="k-zero">—</div><div class="sub">已取得首喊市值和喊后最高市值</div></div>
+        <div class="card kpi"><img class="hall-stat-icon" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZwogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB3aWR0aD0iMjQiCiAgaGVpZ2h0PSIyNCIKICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgZmlsbD0ibm9uZSIKICBzdHJva2U9IiMxNjZiNjAiCiAgc3Ryb2tlLXdpZHRoPSIyIgogIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICBzdHJva2UtbGluZWpvaW49InJvdW5kIgo+CiAgPGVsbGlwc2UgY3g9IjEyIiBjeT0iNSIgcng9IjkiIHJ5PSIzIiAvPgogIDxwYXRoIGQ9Ik0zIDVWMTlBOSAzIDAgMCAwIDIxIDE5VjUiIC8+CiAgPHBhdGggZD0iTTMgMTJBOSAzIDAgMCAwIDIxIDEyIiAvPgo8L3N2Zz4K"><div class="lab">数据未取得</div><div class="val" id="k-missing">—</div><div class="sub" id="k-missing-sub">—</div></div>
+        <div class="card kpi"><img class="hall-stat-icon" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZwogIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICB3aWR0aD0iMjQiCiAgaGVpZ2h0PSIyNCIKICB2aWV3Qm94PSIwIDAgMjQgMjQiCiAgZmlsbD0ibm9uZSIKICBzdHJva2U9IiMxNjZiNjAiCiAgc3Ryb2tlLXdpZHRoPSIyIgogIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICBzdHJva2UtbGluZWpvaW49InJvdW5kIgo+CiAgPHBhdGggZD0iTTEyIDEzVjJsOCA0LTggNCIgLz4KICA8cGF0aCBkPSJNMjAuNTYxIDEwLjIyMmE5IDkgMCAxIDEtMTIuNTUtNS4yOSIgLz4KICA8cGF0aCBkPSJNOC4wMDIgOS45OTdhNSA1IDAgMSAwIDguOSAyLjAyIiAvPgo8L3N2Zz4K"><div class="lab" id="k-win-label">达到 2×</div><div class="val" id="k-win">—</div><div class="sub">仅统计可计算的记录</div></div>
+        <div class="overview-simple-top hall-of-fame"><div id="top"></div></div>
+      </div>
+    </div>
+    <div id="battle" class="subpanel" role="tabpanel">
+    <div class="page-h">
+      <div><h1>24 小时喊单表现</h1><p id="bdesc">按每个代币第一次真人喊单，查看之后 24 小时内的最高倍数。</p></div>
+      <div class="row">
+        <div class="seg" id="bhours"><button data-h="6">6h</button><button data-h="12">12h</button><button data-h="24" class="on">24h</button></div>
+      </div>
+    </div>
+    <div class="grid g4">
+      <div class="card kpi"><div class="lab">窗口内首喊</div><div class="val" id="b-calls">—</div><div class="sub" id="b-calls-sub">所选时间范围</div></div>
+      <div class="card kpi"><div class="lab">算出喊单后最高倍数</div><div class="val" id="b-mature">—</div><div class="sub" id="b-mature-sub">必须拿到喊单时基准和喊单后的最高点</div></div>
+      <div class="card kpi"><div class="lab">暂时算不出来</div><div class="val" id="b-covered">—</div><div class="sub" id="b-covered-sub">缺少喊单时基准或喊单后的最高点</div></div>
+      <div class="card kpi"><div class="lab">峰值倍数 ≥ 2×</div><div class="val" id="b-hit">—</div><div class="sub" id="b-hit-sub">有新高才更新峰值</div></div>
+    </div>
+    <div class="card lst">
+      <div class="chart-h"><div><h2>喊单后的最高倍数</h2><span class="hint">峰倍 = 首次喊单后最高市值 ÷ 首喊市值；仅采用发生在首次喊单之后的高点</span></div><span class="hint" id="b-mature-hint" style="margin-left:auto">—</span></div>
+      <div class="battle-table-scroll" role="region" aria-label="首喊后持续峰倍" tabindex="0"><table id="bmiss"><thead><tr>
+        <th data-k="ts">首喊时间</th><th data-k="group">来源群</th><th data-k="sender">首喊人</th><th data-k="symbol">代币</th><th data-k="baseMc">首喊市值</th><th data-k="athMc">喊单后最高市值</th><th data-k="peakX24">峰值倍数</th><th data-k="peakAt">最高点时间</th><th data-k="eligible">状态</th>
+      </tr></thead><tbody></tbody></table></div>
+    </div>
+      </div>
+  </section>
+
+  <section id="audit">
+    <div class="page-h">
+      <div><h1>代币数据库</h1><p>只看喊单后的最高倍数。拿到的数据会保存，暂时算不出的会标明原因。</p></div>
+      <div class="row audit-actions"><button class="act" id="ma-run" type="button">手动查询未取得项</button><button class="ghost" id="ma-export" type="button">导出日志</button></div>
+    </div>
+    <div id="module-overview" class="module-slot"></div>
+    <div id="data-inventory" aria-live="polite"></div>
+    <div class="card audit-task ma-visual" style="display:none" id="ma-visual" data-state="idle">
+      <div class="ma-overview">
+        <div class="ma-ring" id="ma-ring" role="progressbar" aria-label="补齐查询进度" aria-valuemin="0" aria-valuemax="100" style="--ma-progress:0%"><div><strong id="ma-percent">—</strong><span id="ma-ring-label">待开始</span></div></div>
+        <div class="ma-overview-copy"><div class="ma-eyebrow"><span>补齐进度</span><span id="ma-status" class="ma-status" data-state="idle">待开始</span></div><h2 id="ma-state">准备开始补齐</h2><p id="ma-progress" class="dim">点击“补齐缺失”，后台会依次查询三个步骤。</p><div id="ma-count" class="audit-counter"></div></div>
+      </div>
+      <ol class="ma-flow" aria-label="补齐流程">
+        <li class="ma-step" id="ma-step-0" data-state="idle"><div class="ma-step-head"><span class="ma-step-number" id="ma-step-0-number">01</span><span class="ma-step-status" id="ma-step-0-status">等待开始</span></div><h3>代币资料</h3><p>名称和图标</p><div class="ma-step-detail" id="ma-step-0-detail">按需自动查询</div><div class="ma-step-track" aria-hidden="true"><span id="ma-step-0-bar"></span></div></li>
+        <li class="ma-step" id="ma-step-1" data-state="idle"><div class="ma-step-head"><span class="ma-step-number" id="ma-step-1-number">02</span><span class="ma-step-status" id="ma-step-1-status">等待开始</span></div><h3>首喊市值</h3><p>喊单时的市值基准</p><div class="ma-step-detail" id="ma-step-1-detail">按需自动查询</div><div class="ma-step-track" aria-hidden="true"><span id="ma-step-1-bar"></span></div></li>
+        <li class="ma-step" id="ma-step-2" data-state="idle"><div class="ma-step-head"><span class="ma-step-number" id="ma-step-2-number">03</span><span class="ma-step-status" id="ma-step-2-status">等待开始</span></div><h3>喊后最高市值</h3><p>回查喊单之后的高点</p><div class="ma-step-detail" id="ma-step-2-detail">按需自动查询</div><div class="ma-step-track" aria-hidden="true"><span id="ma-step-2-bar"></span></div></li>
+      </ol>
+      <progress id="ma-progress-bar" class="ma-accessible-progress" max="100" value="0" hidden></progress>
+      <div class="ma-results" aria-label="本轮已取得的行情"><div><span>已取得首喊市值</span><div><strong id="ma-found-base">—</strong><span>条</span></div></div><div><span>已取得喊后最高市值</span><div><strong id="ma-found-peak">—</strong><span>条</span></div></div><div class="ma-result-pending"><span>行情暂未取得</span><div><strong id="ma-not-found">—</strong><span>条</span></div></div></div>
+      <div class="ma-footer"><span id="ma-progress-label" role="status" aria-live="polite">查询结果会自动保存</span><span id="ma-duration"></span></div>
+    </div>
+  </section>
+
+  <section id="groups">
+    <div class="page-h"><div><h1>监听管理</h1><p id="gdesc">分别连接 Telegram 和本机微信；为每个监听群设置群员监控名单与屏蔽名单</p></div><div class="row"><span class="status" id="gstat"></span><button class="act" id="grefresh" type="button">刷新</button></div></div>
+    <div id="module-listening" class="module-slot"></div>
+    <div class="toolbar sticky group-savebar">
+      <div class="savebar" id="gsavebar" hidden>
+        <button class="ghost" id="gundo" type="button">撤销</button>
+        <button class="act" id="gsave" type="button">保存</button>
+      </div>
+    </div>
+    <details class="module-disclosure"><summary>历史消息回读 <span>启动自动回读24小时；需要时补充历史</span></summary><div class="group-backfill-list">
+      <section class="card group-backfill" aria-labelledby="telegram-backfill-title">
+        <div>
+          <h2 id="telegram-backfill-title">Telegram CA 历史回读</h2>
+          <p>悬浮窗仅显示最后提及距今 24 小时以内的代币；这里单独调用 Telegram API 回读历史，结果只进入后台统计。</p>
+          <p class="group-backfill-note">范围最多 7 天。Telegram 回读逐群串行，每 100 条间隔 1 秒；遇到服务器限流会暂停并保留断点，可冷却后继续。</p>
+        </div>
+        <div class="group-backfill-controls">
+          <label for="group-backfill-range-telegram">回读范围
+            <select id="group-backfill-range-telegram">
+              <option value="6h">6 小时</option>
+              <option value="12h">12 小时</option>
+              <option value="24h">24 小时</option>
+              <option value="3d">3 天</option>
+              <option value="7d" selected>7 天</option>
+            </select>
+          </label>
+          <button type="button" class="act" id="group-backfill-run-telegram">开始回读</button>
+        </div>
+        <div class="group-backfill-progress" id="group-backfill-progress-telegram" role="status" aria-live="polite" hidden>
+          <div class="group-backfill-progress-label" id="group-backfill-progress-label-telegram"></div>
+        </div>
+        <div class="group-backfill-status" id="group-backfill-status-telegram" role="status">TG 与微信回读分开运行；Telegram 限流时可以冷却后继续。</div>
+      </section>
+      <section class="card group-backfill" aria-labelledby="wechat-backfill-title">
+        <div>
+          <h2 id="wechat-backfill-title">微信 CA 历史回读</h2>
+          <p>只读取本机微信数据库，不调用 Telegram API；回读范围最多 7 天。</p>
+        </div>
+        <div class="group-backfill-controls">
+          <label for="group-backfill-range-wechat">回读范围
+            <select id="group-backfill-range-wechat">
+              <option value="24h">24 小时</option>
+              <option value="3d">3 天</option>
+              <option value="7d" selected>7 天</option>
+            </select>
+          </label>
+          <button type="button" class="act" id="group-backfill-run-wechat">开始回读</button>
+        </div>
+        <div class="group-backfill-progress" id="group-backfill-progress-wechat" role="status" aria-live="polite" hidden>
+          <div class="group-backfill-progress-label" id="group-backfill-progress-label-wechat"></div>
+        </div>
+        <div class="group-backfill-status" id="group-backfill-status-wechat" role="status">微信回读独立于 TG 历史任务。</div>
+      </section>
+    </div>
+    </details><div id="telegram-panel"></div>
+    <div class="monitor-group-list" id="glist" role="tabpanel"></div>
+  </section>
+
+  <section id="stats"><div id="module-statistics" class="module-slot"></div>
+    <div class="page-h"><div><h1>喊单统计</h1><p>同一代币只按第一次真人喊单计数；本页按喊单人比较喊单后的最高倍数。</p></div></div>
+    <p class="hint" id="s-api-note" role="status" hidden></p>
+    <div class="toolbar">
+      <label>群 <select id="sgroup"><option value="">全部</option></select></label>
+      <label>时间 <select id="shours"><option value="0">全部</option><option value="24">24h</option><option value="72">3 天</option><option value="168">7 天</option></select></label>
+      <label>达标倍数 ≥ <input id="swin" type="number" step="0.1" value="2" />×</label>
+      <label><input id="sinclude-approx" type="checkbox" /> 包含近似基准（≈）</label>
+      <details class="stats-exclusions" id="s-exclusions" hidden>
+        <summary>已屏蔽 <span class="pill" id="s-exclusion-count">0</span></summary>
+        <div class="stats-excluded-list" id="s-excluded-list"></div>
+      </details>
+      <button class="act" id="srefresh">刷新</button>
+    </div>
+    <p class="hint" id="s-coverage" role="status"></p>
+    <div><table id="stable"><thead><tr>
+      <th data-k="sender">喊单人</th><th data-k="calls">有效/首喊</th><th data-k="winRate">达标率</th><th data-k="medianPeakX">中位峰值倍数</th><th data-k="avgPeakX">平均峰值倍数</th><th data-k="best">最高峰值倍数</th>
+    </tr></thead><tbody></tbody></table></div>
+  </section>
+
+
+
+  <section id="settings">
+    <div class="page-h"><div><h1>设置与日志</h1><p>管理悬浮窗、AVE 行情和监控推送；出现问题可一键导出日志。</p></div></div>
+      <div id="module-settings" class="module-slot"></div>
+      
+      <section class="card settings-card" aria-labelledby="ave-login-title">
+        <h2 id="ave-login-title">AVE</h2>
+        <p>CA 通过 AVE 内置网页查询定链；未找到时再用 Dex 补查。行情详情和 K 线使用本机 AVE 登录会话。</p>
+        <button type="button" class="act" id="ave-login-open">打开 AVE 内置登录</button>
+        <div class="settings-status" id="ave-login-status" role="status">尚未打开 AVE 登录窗口。</div>
+      </section>
+    <div class="form card settings-panel" style="margin-top:16px">
+      <div class="settings-panel-head"><h2>Telegram Bot API 推送</h2><p class="dim" style="margin:7px 0 0;font-size:12px">将新捕获的 CA 推送到 Telegram 群或频道；历史回读和模拟数据不会发送。</p></div>
+      <div class="kv">
+        <label for="tg-bot-enabled">自动推送</label><div><label style="display:flex;align-items:center;gap:8px"><input id="tg-bot-enabled" type="checkbox" style="width:auto">启用新 CA 推送</label></div>
+        <label for="tg-bot-token">Bot API Token</label><div><input id="tg-bot-token" type="password" autocomplete="new-password" placeholder="从 BotFather 获取；留空保留已保存 Token"></div>
+        <label for="tg-bot-target">推送目标</label><div><input id="tg-bot-target" type="text" autocomplete="off" placeholder="数字 chat_id 或公开目标 @username"></div>
+      </div>
+      <div class="tg-forward-filters" id="tg-bot-filter-panel">
+        <h3>来源群与成员筛选</h3>
+        <p class="tg-forward-note">只限制已配置的群：该群仅转发勾选成员的 CA；其他未配置的来源群不受影响。按成员 ID 匹配，改名后规则仍有效。</p>
+        <div id="tg-bot-filter-editor"></div>
+        <div id="tg-bot-filter-rules" class="tg-forward-rules"></div>
+      </div>
+      <div class="row" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <button id="tg-bot-save" class="ghost" type="button">保存设置</button>
+        <button id="tg-bot-check" class="ghost" type="button">检查连接</button>
+        <button id="tg-bot-test" class="ghost" type="button">发送测试消息</button>
+        <button id="tg-bot-clear" class="ghost" type="button">清除 Token</button>
+        <span class="status" id="tg-bot-status" role="status">正在读取状态…</span>
+      </div>
+      <p class="dim" style="margin:12px 0 0;font-size:12px">目标群需已添加机器人；频道需授予机器人发布消息权限。Token 仅保存在本机应用数据目录，不会返回到界面接口。</p>
+    </div>
+  </section>
+  </div>
+</div>
+
+<script src="/ui-bridge.js?v=20261103-epoch"></script><script src="/assets/backfill.js"></script>
+<script src="/assets/sources.js"></script>
+<script src="/assets/statistics.js?v=20261006-provider-cleanup"></script>
+<script src="/assets/repair-progress.js?v=20261103-trim"></script><script src="/assets/market.js"></script><script src="/assets/inventory.js?v=20261103-trim"></script>
+<script src="/assets/dashboard.js?v=20261103-controls"></script><script type="module" src="/modules/index.js?v=20261102-visible-module"></script>
+</body>
+</html>

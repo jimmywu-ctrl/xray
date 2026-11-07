@@ -1,0 +1,104 @@
+/* Approved Obsidian Console: presentation only; compact rows remain 70 CSS px. */
+:root{color-scheme:dark;--canvas:#000;--surface:#090909;--surface-soft:#111;--ink:#ededed;--muted:#b0b0b0;--faint:#a0a0a0;--hair:#282828;--hair2:#454545;--bg:#000;--bg2:#090909;--bg3:#111;--card:#090909;--panel:#090909;--line:#282828;--module-bg:#090909;--module-border:#282828;--module-muted:#b0b0b0;--accent:#8fdfb8;--accent2:#8fdfb8;--up:#8fdfb8;--down:#f59aa8;--amber:#edc46b}
+body.xray-dashboard,body.xray-overlay{color:#ededed!important;font-family:"Segoe UI Variable Text","Segoe UI","Microsoft YaHei UI",Arial,sans-serif!important;font-variant-numeric:tabular-nums lining-nums;text-shadow:none}
+body.xray-dashboard,body.xray-dashboard :is(.main,.content){background:#000!important}
+body.xray-dashboard aside{width:184px!important;min-width:184px!important;padding:16px 12px 12px!important;background:#030303!important;border-color:#282828!important}
+body.xray-dashboard .brand{height:40px;gap:9px!important;margin:0 6px 24px!important;font-size:19px!important;color:#ededed!important}
+body.xray-dashboard .brand .badge{width:28px!important;height:28px!important}
+body.xray-dashboard aside nav{gap:4px!important}
+body.xray-dashboard aside nav button{height:40px!important;min-height:40px!important;padding:9px 12px!important;border-radius:6px!important;background:transparent!important;color:#c0c0c0!important;font-size:14px!important;font-weight:500!important}
+body.xray-dashboard aside nav button:hover{background:#111!important;color:#fff!important}
+body.xray-dashboard aside nav button.on{background:#17211b!important;color:#ecf7ef!important;box-shadow:inset 2px 0 #8fdfb8!important}
+body.xray-dashboard aside nav button svg{width:18px!important;height:18px!important;stroke-width:1.6}
+body.xray-dashboard .topbar{height:54px!important;min-height:54px!important;padding:0 24px!important;background:#030303!important;border-color:#282828!important}
+body.xray-dashboard .crumb,body.xray-dashboard .crumb b{font-size:13px;color:#d4d4d4!important}
+body.xray-dashboard .top-status{border:0!important;background:#101c14!important;color:#ace6c5!important;font-weight:500;border-radius:5px}
+body.xray-dashboard .content{padding:22px 24px 28px!important}
+body.xray-dashboard .page-h{margin:20px 0!important}
+body.xray-dashboard h1,#overview #ov-summary>.page-h h1{font-size:26px!important;line-height:1.35!important;font-weight:650!important;letter-spacing:-.45px!important;color:#f1f1f1!important}
+body.xray-dashboard .page-h p,#overview #ov-summary>.page-h #ov-sub{font-size:13px!important;color:#b0b0b0!important;line-height:1.65}
+body.xray-dashboard :is(h2,h3,.module-heading h2){color:#ededed!important}
+body.xray-dashboard :is(.dim,.muted,.hint,.module-note,.module-heading p,.grp){color:#b0b0b0!important}
+body.xray-dashboard :is(.card,.module-card,.settings-card,.settings-panel,.monitor-group-list,.toolbar){background:#090909!important;border-color:#282828!important;border-radius:7px!important;box-shadow:none!important}
+body.xray-dashboard :is(button,input,select,textarea),body.xray-overlay :is(button,input,select,textarea){border-color:#454545!important;border-radius:6px;color:#ededed!important;font-family:inherit}
+body.xray-dashboard :is(input,select,textarea),body.xray-dashboard button:not(.on):not(.act):not(.primary){background:#0e0e0e!important}
+body.xray-dashboard :is(#settings,#groups,#stats,#audit) :is(input,select,textarea){background:#0e0e0e!important;color:#ededed!important;border-color:#454545!important}
+body.xray-dashboard :is(button,input,select,textarea):disabled{background:#0b0b0b!important;color:#929292!important;border-color:#303030!important}
+body.xray-dashboard button:hover{background:#191919!important;border-color:#737373!important}
+body.xray-dashboard :is(button.act,button.primary,.module-export),body.xray-overlay :is(button.primary,.backfill-run,.ca-query-run,.ca-correction-actions button[type=submit]){background:#ededed!important;border-color:#ededed!important;color:#111!important;font-weight:600}
+body.xray-dashboard :is(button.act,button.primary,.module-export):hover,body.xray-overlay button.primary:hover{background:#d5d5d5!important;border-color:#d5d5d5!important;color:#000!important}
+body.xray-dashboard aside nav button:not(.on):not(.act):not(.primary){background:transparent!important}
+body.xray-dashboard aside nav button:not(.on):not(.act):not(.primary):hover{background:#111!important}
+body.xray-dashboard aside nav button.on{background:#17211b!important}
+body.xray-dashboard :is(.seg,.tabs,.page-subs){background:#070707!important;border-color:#454545!important;border-radius:6px!important;padding:2px}
+body.xray-dashboard :is(.seg,.page-subs) button{background:transparent!important;border-color:transparent!important;color:#bcbcbc!important;min-height:30px}
+body.xray-dashboard :is(.seg button.on,.seg button.active,.seg button[aria-selected=true],.page-subs button.on){background:#202020!important;color:#fff!important;box-shadow:inset 0 0 0 1px #454545!important}
+body.xray-dashboard :is(.module-disclosure,.module-flow li,.stats-explainer-grid>div,details>summary,.settings-status,.module-status){background:#101010!important;border-color:#383838!important;color:#c8c8c8!important}
+body.xray-dashboard :is(.caller-pop,.ma-actions[open]>div,.chart-tip,.work-status,.unresolved-calls),body.xray-overlay :is(.label-modal-card,.backfill-popover,.ca-query,.overlay-toast){background:#101010!important;color:#ededed!important;border:1px solid #454545!important;border-radius:7px!important;box-shadow:0 10px 28px #0008!important}
+body.xray-dashboard .caller-pop :is(.caller-pop-scope,.caller-pop-metrics span,.caller-pop-foot,.caller-pop-row time){color:#b0b0b0!important}
+body.xray-dashboard .caller-pop-close{background:transparent!important;color:#ededed!important}
+body.xray-dashboard table{background:#090909!important;color:#dedede!important}
+body.xray-dashboard table :is(thead,th){background:#151515!important;color:#c8c8c8!important}
+#stable{border-color:#383838!important}#stable thead th{background:#151515!important;color:#c8c8c8!important}
+body.xray-dashboard table :is(thead,tbody,tr,th,td){border-color:#282828!important}
+body.xray-dashboard table tbody tr:hover td{background:#141414!important}
+body.xray-dashboard .calls,body.xray-dashboard .calls .li,#stable tbody td:first-child{background:#090909!important;color:#ededed!important;border-color:#282828!important}
+body.xray-dashboard .calls .li:hover,#stable tbody tr:hover td:first-child{background:#141414!important}
+body.xray-dashboard .chain{background:#171717!important;border-color:#454545!important}
+body.xray-dashboard .peak-tier{background:#151515;box-shadow:none}
+body.xray-dashboard .iv-system-status,body.xray-dashboard .iv-system-status>span,body.xray-dashboard .iv-simple-detail-body{background:transparent!important;color:#bcbcbc!important}
+body.xray-dashboard .iv-candidates td code,body.xray-dashboard pre,body.xray-dashboard code{background:#101010!important;color:#d2d2d2!important;border-color:#383838!important}
+body.xray-dashboard *{scrollbar-color:#505050 #080808;scrollbar-width:thin}
+#overview #ov-summary .overview-simple{border-bottom:0!important;padding:12px 0 24px!important;margin-bottom:8px!important}
+#overview #ov-summary .overview-simple>.kpi{border-color:#333!important}
+#overview #ov-summary .overview-simple>.kpi:not(:first-child){border-left:1px solid #333!important}
+#overview #ov-summary .overview-simple>.kpi .lab{color:#c4c4c4!important;font-size:12px!important}
+#overview #ov-summary .overview-simple>.kpi .val{color:#f1f1f1!important;font-weight:600!important;font-size:34px!important;letter-spacing:-.7px}
+#overview #ov-summary .overview-simple>.kpi:nth-child(3) .val{color:#edc46b!important}
+#overview #ov-summary .race-table-card,#overview .hall-of-fame{background:#000!important;border-color:#282828!important}
+#overview #ov-summary .race-section-title{margin-bottom:16px!important}
+#overview #ov-summary .race-section-title h2{font-size:22px!important;font-weight:600!important;color:#ededed!important}
+#overview #ov-summary .race-section-title p{color:#b0b0b0!important}
+#overview #ov-summary .race-table{background:#080808!important;border:1px solid #383838!important;border-radius:7px!important}
+#overview #ov-summary .race-head,#overview #ov-summary .race-row{grid-template-columns:30px minmax(110px,1.25fr) minmax(100px,1fr) 66px 78px minmax(100px,1fr)!important;gap:12px!important;min-width:610px!important;padding:10px 14px!important;border-bottom-color:#282828!important;color:#d0d0d0!important}
+#overview #ov-summary .race-head{background:#161616!important;font-size:12px!important;min-height:40px!important;color:#c8c8c8!important;border-radius:0!important}
+#overview #ov-summary .race-row{background:#080808!important;min-height:56px!important;font-size:13px!important}
+#overview #ov-summary .race-row.race-first{background:#121b15!important}
+#overview #ov-summary .race-row:hover{background:#171717!important}
+#overview #ov-summary :is(.race-person-name,.race-best b,.race-row-peak){color:#ededed!important}
+#overview #ov-summary .race-row-peak{font-size:21px!important;font-weight:600!important;letter-spacing:-.3px!important}
+#overview #ov-summary .race-first .race-row-peak{color:#8fdfb8!important}
+#overview #ov-summary :is(.race-row-rank,.race-row-sample,.race-row-hit,.race-person-name small){color:#bcbcbc!important}
+#overview #ov-summary .race-first .race-row-rank{color:#8fdfb8!important}
+body.xray-overlay #panel{background:#000;border-color:#454545;border-radius:8px;padding:0;gap:0}
+body.xray-overlay :is(.hdr,.search-wrap,.cols,.footer){background:#000;border-color:#282828}
+body.xray-overlay .hdr{height:54px;min-height:54px;padding-inline:12px}
+body.xray-overlay .search-wrap{padding:12px 12px 8px}
+body.xray-overlay .search{background:#0e0e0e;border-color:#454545;border-radius:6px}
+body.xray-overlay :is(.title,.sym,.mc,.mc.estimated){color:#f1f1f1!important}
+body.xray-overlay :is(.live-status,.subtitle,.kol,.kol-more,.chg.pending,.footer,.ft-btn){color:#bcbcbc}
+body.xray-overlay .subtitle .n{color:#8fdfb8}
+body.xray-overlay .list{background:#000;scrollbar-color:#505050 #000;scrollbar-width:thin;flex:1 1 0;min-height:0;padding-bottom:0}
+body.xray-overlay .row{height:70px;min-height:70px;max-height:70px;background:#030303;border-bottom-color:#282828}
+body.xray-overlay .row:not(.labeled-caller):not(.channel-call):not(.fresh):hover{background:#111}
+body.xray-overlay .row.labeled-caller:not(.channel-call){background:linear-gradient(105deg,#30260c,#151d0f);box-shadow:inset 0 0 0 1px #bd9747,inset 3px 0 #edc46b;border-radius:6px}
+body.xray-overlay .row.channel-call:not(.labeled-caller){background:linear-gradient(105deg,#0e1c30,#0b2035);box-shadow:inset 0 0 0 1px #568fc7,inset 3px 0 #81b3e8;border-radius:6px}
+body.xray-overlay .row.labeled-caller.channel-call{background:linear-gradient(105deg,#30260c,#1e2017 40%,#10263d);box-shadow:inset 0 0 0 1px #d1ac62,inset 3px 0 #edc46b;border-radius:6px}
+body.xray-overlay .row.labeled-caller:hover{box-shadow:inset 0 0 0 1px #f1cf82,inset 3px 0 #f1cf82}
+body.xray-overlay .row.channel-call:not(.labeled-caller):hover{box-shadow:inset 0 0 0 1px #a0caff,inset 3px 0 #a0caff}
+body.xray-overlay .avatar{background:#24272c!important;box-shadow:inset 0 0 0 1px #ffffff0d}
+body.xray-overlay .chain-corner{border-color:#030303}
+body.xray-overlay :is(.token-mute,.token-correct-ca){color:#bcbcbc!important;background:transparent!important}
+body.xray-overlay :is(.token-mute,.token-correct-ca):hover{background:#ffffff14!important;color:#fff!important}
+body.xray-overlay .mc{font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.45px;font-weight:650}
+body.xray-overlay .chg.up{color:#8fdfb8!important}body.xray-overlay .chg.down{color:#f59aa8!important}
+body.xray-overlay button.kol-name.tagged{background:#392b10!important;border-color:#9a7936!important;color:#f4d38b!important}
+body.xray-overlay .channel-call-badge{background:#152b45;color:#c3dfff;border-color:#648ab6}
+body.xray-overlay :is(.hdr-hide,.ft-btn){background:#111!important;border-color:#454545!important;color:#d4d4d4!important}
+body.xray-overlay .footer{height:32px;min-height:32px;flex:0 0 32px;margin:0;padding:0 10px}
+body.xray-overlay .ft-btn:hover{background:#202020!important;border-color:#737373!important}
+body.xray-overlay :is(.label-modal-hd,.label-modal-raw-v){color:#ededed!important}
+body.xray-overlay :is(.label-modal-raw-wrap,.backfill-status,.muted-empty,.muted-address,.muted-sub,.ca-query-status,.ca-query-time){color:#b0b0b0!important}
+body.xray-overlay .collapsed-logo{background:#080808!important;border-color:#454545!important}
+@media(max-width:1100px){body.xray-dashboard aside{width:168px!important;min-width:168px!important}body.xray-dashboard .content{padding-inline:20px!important}}
+@media(max-width:780px){body.xray-dashboard aside{width:64px!important;min-width:64px!important;padding:14px 8px!important}body.xray-dashboard .brand{margin:0 4px 20px!important}body.xray-dashboard aside nav button{font-size:0!important;padding:10px!important;gap:0!important}body.xray-dashboard .content{padding:18px 14px!important}#overview #ov-summary .overview-simple>.kpi{border:0!important}#overview #ov-summary .overview-simple>.kpi:nth-child(even){border-left:1px solid #333!important}#overview #ov-summary .overview-simple>.kpi .val{font-size:30px!important}}

@@ -1,0 +1,76 @@
+/* Precision White: a neutral product surface with semantic source highlights. */
+:root{--canvas:#f4f5f7;--ink:#171b23;--muted:#717987;--faint:#929aa5;--surface-soft:#f6f7f9;--hair:#e8ebef;--hair2:#dfe4e9;--bg:#f6f7f9;--bg2:#fff;--bg3:#f5f6f8;--line:#e8ebef;--module-muted:#717987}
+body.xray-dashboard,.xray-dashboard .main,.xray-dashboard .content{background:#fff!important;color:#171b23!important}
+.xray-dashboard aside{border-color:#e8ebef!important}.xray-dashboard .brand{color:#171b23!important}
+.xray-dashboard aside nav button{color:#505967!important;font-size:14px!important}
+.xray-dashboard aside nav button.on,.xray-dashboard aside nav button.active{background:#f3f5f7!important;color:#193f3e!important;box-shadow:inset 2px 0 #087d70!important}
+.xray-dashboard aside nav button:hover{background:#f5f6f8!important}.xray-dashboard .topbar{border-color:#e8ebef!important}
+.xray-dashboard h1,#overview #ov-summary>.page-h h1{color:#151a22!important;font-size:28px!important;letter-spacing:-.7px!important}
+.xray-dashboard .page-h p,#overview #ov-summary>.page-h p,#overview #ov-summary>.page-h #ov-sub{color:#77808d!important;font-size:14px!important}
+.xray-dashboard .dim,.xray-dashboard .muted,.xray-dashboard .hint,.xray-dashboard .module-note{color:#77808d!important}
+.xray-dashboard .card,.xray-dashboard .module-card,.xray-dashboard .settings-card,.xray-dashboard .settings-panel,.xray-dashboard .monitor-group-list{border-color:#e4e8ed!important;border-radius:9px!important}
+.xray-dashboard :is(input,select,textarea){color:#293340!important;border-color:#dfe4e9!important;background:#fff!important}
+.xray-dashboard details>summary{background:#f7f8fa!important;border-color:#e5e9ee!important;color:#596473!important}
+.xray-dashboard .settings-status,.xray-dashboard .group-backfill-status{background:#f6f7f9!important;color:#657180!important;border-color:#e4e8ed!important}
+.xray-dashboard :is(h2,h3,.module-heading h2,.race-section-title h2){color:#1b232e!important}
+#overview #ov-summary .overview-simple{padding:14px 0 26px!important;border-bottom:1px solid #e5e9ee!important;gap:0!important;margin-bottom:0!important}
+#overview #ov-summary .overview-simple>.kpi,#overview #ov-summary .overview-simple>.kpi:first-child,#overview #ov-summary .overview-simple>.kpi:nth-child(4){min-height:116px!important;padding:18px 14px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;grid-template-columns:28px minmax(0,1fr)!important;grid-template-rows:24px 48px!important;column-gap:10px!important}
+#overview #ov-summary .overview-simple>.kpi .hall-stat-icon{width:25px!important;height:25px!important;padding:2px!important;background:none!important;border-radius:0!important;align-self:start!important;margin-top:1px!important}
+#overview #ov-summary .overview-simple>.kpi .lab{color:#798391!important;font-size:12px!important}
+#overview #ov-summary .overview-simple>.kpi .val{color:#141c27!important;font-size:36px!important;line-height:46px!important;letter-spacing:-1.2px!important;font-weight:650!important}
+#overview #ov-summary .overview-simple>.kpi:nth-child(3) .val{color:#a16a17!important}
+#overview #ov-summary .overview-simple>.kpi:nth-child(4) .val{font-size:44px!important}
+#overview #ov-summary .overview-simple-top.hall-of-fame{margin:25px 0 0!important}
+#overview #ov-summary .race-table-card{border:0!important;border-radius:0!important;padding:0!important;background:#fff!important}
+#overview #ov-summary .race-section-title{margin-bottom:22px!important}#overview #ov-summary .race-section-title h2{font-size:22px!important;color:#17212d!important}
+#overview #ov-summary .race-section-title p{color:#818a96!important}
+#overview #ov-summary .race-head{background:#f7f8fa!important;color:#75808e!important;border-radius:0!important;font-size:12px!important}
+#overview #ov-summary .race-row{color:#4d5969!important;border-bottom-color:#e9edf1!important;min-height:62px!important}
+#overview #ov-summary .race-row.race-first{background:#fff!important;border-radius:0!important;box-shadow:inset 2px 0 #0a8e7c!important}
+#overview #ov-summary .race-row:hover{background:#f8fafb!important}
+#overview #ov-summary .race-person-name,#overview #ov-summary .race-best b{font-size:14px!important;color:#222d3b!important;font-weight:500!important}
+#overview #ov-summary .race-person-name small{color:#8a939f!important}
+#overview #ov-summary .race-row-peak{font-size:22px!important;color:#151e2a!important}
+#overview #ov-summary .race-first .race-row-peak{color:#087d70!important}
+#overview #ov-summary .race-row-rank,#overview #ov-summary .race-row-sample,#overview #ov-summary .race-row-hit{color:#65707f!important}
+#overview #ov-summary .race-person .logo,#overview #ov-summary .race-best .logo{border-color:#e4e8ed!important;background:#f4f6f8!important}
+/* The 70px virtual-row contract and full-cover avatar positioning are preserved. */
+.xray-overlay #panel{border-color:#e0e5eb;border-radius:11px}.xray-overlay .hdr,.xray-overlay .search-wrap,.xray-overlay .cols,.xray-overlay .footer{border-color:#e8ecf0}
+.xray-overlay .title{color:#17202b;font-size:15px}.xray-overlay .live-status,.xray-overlay .subtitle{color:#7a8492}
+.xray-overlay .search{background:#f8f9fb;border-color:#e0e5ec}.xray-overlay .search input{color:#313c4c!important}.xray-overlay input::placeholder{color:#8b94a1}
+.xray-overlay .row{border-left:3px solid transparent;padding-left:9px;border-bottom-color:#e9edf2;background:#fff}
+.xray-overlay .row:hover,.xray-overlay .row.fresh,.xray-overlay .row.selected{background:#f7f9fb;box-shadow:none}
+.xray-overlay .row.channel-call{border-left-color:#3478cf;background:#f4f8ff}
+.xray-overlay .row.labeled-caller{border-left-color:#cf901f;background:#fffaf0;padding-left:9px}
+.xray-overlay .row.channel-call.labeled-caller{border-left-color:#cf901f;box-shadow:inset 3px 0 #3478cf;background:#fffbf2}
+.xray-overlay .row.channel-call:hover{background:#edf4ff}.xray-overlay .row.labeled-caller:hover{background:#fff5df}
+.xray-overlay .sym{font-size:16px;color:#17212c;font-weight:650}.xray-overlay .sym.addr{font-size:12px;color:#657182}
+.xray-overlay .meta{gap:5px}.xray-overlay .kol-row{gap:5px;min-height:20px;line-height:20px}
+.xray-overlay .kol{font-size:12px;color:#768191;gap:4px;line-height:20px}.xray-overlay .kol svg{color:#929ba8}
+.xray-overlay .kol-names{gap:0;min-height:20px}.xray-overlay .kol-name{max-width:105px;font-size:12px!important;line-height:20px!important;min-height:20px!important;flex-shrink:0}
+.xray-overlay .kol-mid{margin:0 3px;color:#a1a9b4}.xray-overlay .kol-more{color:#758296;font-size:11px;flex-shrink:0}
+.xray-overlay .channel-call-badge{height:20px;line-height:18px;min-width:34px;padding:0 5px;border:1px solid #2c6ec3;border-radius:4px;background:#3478cf;color:#fff;font-size:11px;font-weight:600;flex:none}
+.xray-overlay button.kol-name.tagged{color:#925709!important;background:#fff0cd!important;border:1px solid #ddb258!important;padding:0 5px!important;line-height:18px!important;font-weight:650!important;border-radius:4px;max-width:128px}
+.xray-overlay button.kol-name.tagged:hover{background:#ffe3a2!important;border-color:#c38b25!important}
+.xray-overlay .token-mute,.xray-overlay .token-correct-ca{width:20px;height:22px;color:#7c8798}.xray-overlay .token-mute svg,.xray-overlay .token-correct-ca svg{width:12px;height:12px}
+.xray-overlay .mc,.xray-overlay .mc.estimated{font-size:22px;color:#151e29;font-weight:650;letter-spacing:-.65px}.xray-overlay .mc.stale{color:#8d723f}
+.xray-overlay .chg{padding:0;background:none!important;min-height:17px;line-height:17px;font-size:12px;font-weight:550;color:#87919e}
+.xray-overlay .chg.up{color:#088773}.xray-overlay .chg.down{color:#c64c59}.xray-overlay .chg.pending{color:#87919e}
+.xray-overlay .footer,.xray-overlay .ft-btn{color:#7f8a98}.xray-overlay .ft-btn:hover{background:#f0f4f8;color:#344356}
+.xray-overlay .label-modal-raw-wrap,.xray-overlay .backfill-status,.xray-overlay .muted-empty{color:#7a8595}
+@media(min-width:500px){.xray-overlay .row,.xray-overlay .row.labeled-caller{padding-left:13px}.xray-overlay .kol-name{max-width:150px}}
+@media(max-width:325px){.xray-overlay .sym{font-size:14px}.xray-overlay .mc,.xray-overlay .mc.estimated{font-size:19px}.xray-overlay .row,.xray-overlay .row.labeled-caller{padding-left:6px}.xray-overlay .kol-name{max-width:70px}.xray-overlay button.kol-name.tagged{max-width:80px}.xray-overlay .channel-call-badge{min-width:30px;padding-inline:3px}.xray-overlay .kol-row{gap:3px}}
+@media(max-width:780px){.xray-dashboard h1,#overview #ov-summary>.page-h h1{font-size:25px!important}#overview #ov-summary .overview-simple{gap:10px!important}#overview #ov-summary .overview-simple>.kpi{min-height:100px!important;padding:12px 4px!important}#overview #ov-summary .overview-simple>.kpi:nth-child(4) .val{font-size:38px!important}#overview #ov-summary .race-table-card{padding:0!important}.xray-dashboard aside nav button{font-size:0!important}}
+#overview #ov-summary .overview-simple>.kpi:nth-child(2) .val,#overview #ov-summary .overview-simple>.kpi:nth-child(4) .val{color:#141c27!important}
+/* Larger overlay type without changing virtual row geometry. */
+.xray-overlay .title{font-size:16px}.xray-overlay .live-status,.xray-overlay .subtitle{font-size:11px}
+.xray-overlay .search input{font-size:14px!important}.xray-overlay .sort-multiple{font-size:11px}
+.xray-overlay .sym{font-size:17px;line-height:21px}.xray-overlay .sym.addr{font-size:13px}
+.xray-overlay .meta{gap:4px}.xray-overlay .kol-row{min-height:22px;line-height:22px}
+.xray-overlay .kol{font-size:13px;line-height:22px}.xray-overlay .kol-name{font-size:13px!important;line-height:22px!important;min-height:22px!important}
+.xray-overlay .channel-call-badge{height:22px;min-width:36px;line-height:20px;font-size:12px}
+.xray-overlay button.kol-name.tagged{line-height:20px!important}
+.xray-overlay .mc,.xray-overlay .mc.estimated{font-size:24px;line-height:26px}
+.xray-overlay .chg{font-size:13px;line-height:18px;min-height:18px}
+.xray-overlay .footer,.xray-overlay .ft-btn{font-size:11px}
+@media(max-width:325px){.xray-overlay .sym{font-size:15px}.xray-overlay .mc,.xray-overlay .mc.estimated{font-size:21px}.xray-overlay .kol,.xray-overlay .kol-name{font-size:12px!important}.xray-overlay .channel-call-badge{font-size:11px;min-width:32px}.xray-overlay .live-status{font-size:10px}}

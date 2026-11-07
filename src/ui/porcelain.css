@@ -1,0 +1,121 @@
+/* X-ray / Porcelain. Shared controls and tokens for every product surface. */
+:root{
+ color-scheme:light;--canvas:#f6f7f3;--surface:#fff;--surface-soft:#f3f6f4;--ink:#172c2b;--muted:#697975;--faint:#87948f;
+ --accent:#166b60;--accent2:#166b60;--accent-dim:#e6f3ef;--accent-glow:transparent;--cyan:#2b7a79;--up:#166b60;--down:#ba4452;--amber:#9b681f;
+ --hair:#e4e9e5;--hair2:#dce4df;--hair-accent:#bddcd1;--bg:#f6f7f3;--bg2:#fff;--bg3:#f2f6f3;--card:#fff;--panel:#fff;--line:#e4e9e5;
+ --sans:"Segoe UI Variable Text","Segoe UI","Microsoft YaHei UI","Microsoft YaHei",Arial,sans-serif;--mono:Consolas,"Microsoft YaHei UI",monospace;
+ --module-bg:#fff;--module-border:#e2e9e4;--module-muted:#697975;--module-good:#166b60;--module-warn:#9b681f;
+ --fs-xs:12px;--fs-sm:13px;--fs-base:14px;--fs-md:15px;--fs-lg:17px;--fs-title:26px;--fs-kpi:36px;--pad-page:28px;--gap:18px;--side-w:168px;
+}
+*{box-sizing:border-box}html{font-size:14px!important}body{font-family:var(--sans);color:var(--ink);font-weight:400;font-synthesis:none}
+button,input,select,textarea{font:inherit;color:inherit}button,select,input,textarea,summary{outline:none}button{cursor:pointer}
+button:not([disabled]),a,input,select,textarea{touch-action:manipulation}
+button,select,input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea{border:1px solid var(--hair2);border-radius:8px;background:#fff;box-shadow:none;transition:background .12s,border-color .12s;color:#263e38}
+button{min-height:34px;padding:7px 12px;font-size:13px;font-weight:600;line-height:1.25}
+button:hover{background:#f0f6f3;border-color:#b9cec2}button:active{background:#e3f0e9}
+input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea{min-height:36px;padding:8px 11px;font-size:13px;line-height:1.4}
+input::placeholder,textarea::placeholder{color:#87958e}select{color-scheme:light;padding-right:26px}option,optgroup{background:#fff;color:#243b33}
+input[type=checkbox],input[type=radio]{accent-color:var(--accent);width:16px;height:16px;vertical-align:middle;cursor:pointer;flex:none}input[type=range]{accent-color:var(--accent)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid #428f7f;outline-offset:2px}
+input:focus,select:focus,textarea:focus{border-color:#428f7f}button:disabled,input:disabled,select:disabled,textarea:disabled{opacity:.5;cursor:not-allowed;background:#f0f3f0;box-shadow:none}
+button.act,button.primary,.label-modal-btn.primary,.backfill-run,.ca-query-run{background:#166b60!important;border-color:#166b60!important;color:#fff!important}
+button.act:hover,button.primary:hover,.label-modal-btn.primary:hover{background:#10594f!important;border-color:#10594f!important}
+.ghost{background:#fff!important;color:#526a5c!important;border-color:#dce4df!important}
+.dim,.muted,.hint,.module-note,.module-empty,.module-heading>span,.module-heading p{color:var(--muted)!important}
+.up,.pos,.good,.success{color:var(--up)}.down,.neg,.error{color:var(--down)}
+[hidden]{display:none!important}a{color:inherit}::selection{background:#d5ece2;color:#153b30}
+::-webkit-scrollbar{width:7px;height:7px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#ced9d1;border:2px solid transparent;background-clip:padding-box;border-radius:6px}::-webkit-scrollbar-thumb:hover{background:#a7bfb0}
+dialog,[role=dialog],.caller-popover,.label-modal-card,.backfill-popover,.modal-card,.popover{background:#fff!important;color:var(--ink)!important;border:1px solid #d8e3dc!important;border-radius:12px!important;box-shadow:0 12px 36px #203b2c18!important;backdrop-filter:none!important}
+dialog{padding:24px;max-width:min(600px,calc(100vw - 32px))}dialog::backdrop{background:#142e282b;backdrop-filter:none}
+dialog h2,dialog h3{margin:0 0 16px;color:var(--ink)}dialog label{display:block;margin:16px 0 6px}dialog input{width:100%}
+.ca-correction-actions,.label-modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.ca-correction-form>p{color:var(--muted);font-size:12px;line-height:1.7;overflow-wrap:anywhere}.ca-correction-error{color:var(--down)!important}
+pre,code,.log,.logs{background:#f3f6f3;color:#344c40;border-color:var(--hair2);font-family:var(--mono);font-size:12px}
+table{border-collapse:collapse;width:100%;font-size:13px;color:#30473c;background:#fff}thead{background:#f6f8f5}th{color:#63776b;font-size:12px;font-weight:600;white-space:nowrap}td,th{padding:13px 15px;border-bottom:1px solid #e7ece7;text-align:left}tr:hover td{background:#f3f8f4}
+.pill,.badge:not(.brand .badge),.tag{border:1px solid #d9e8df;background:#eff6f1;color:#376750;border-radius:6px;padding:3px 7px;font-size:11px}
+.seg,.tabs,.page-subs{background:#eef2ee!important;border:1px solid #e2e8e2!important;padding:3px!important;border-radius:9px!important;box-shadow:none!important}
+.seg button,.page-subs button{border:0!important;background:transparent!important;color:#687b6e!important;border-radius:6px!important;min-height:29px;padding:6px 12px!important;box-shadow:none!important;font-weight:600!important}
+.seg button.on,.seg button.active,.seg button[aria-selected=true],.page-subs button.on{background:#166b60!important;color:#fff!important}
+.card,.module-card,.settings-card,.settings-panel,.group-backfill,.monitor-group-list,.iv-panel{background:#fff!important;border-color:#e2e9e3!important;box-shadow:none!important;border-radius:12px!important}
+.module-card,.settings-card,.settings-panel{padding:22px!important}.module-card h3,.settings-card h2,.settings-panel h2{color:#233c2f}.module-card p,.settings-card p{color:var(--muted);line-height:1.7}
+.module-heading h2{font-size:18px;font-weight:650}.module-stat b,.module-stat strong{color:#1c5340}.module-status,.settings-status{background:#f3f7f3;color:#64796c;border-color:#dce7df}
+.iv-system-status,.iv-query-simple,.iv-simple-result,.iv-system-status>span,.iv-simple-detail-body{color:#304f3d;background:#fff;border-color:#e2e9e3}
+/* Desktop dashboard */
+body.xray-dashboard{background:var(--canvas)!important;color:var(--ink)!important;font-size:14px!important;line-height:1.5;container-type:normal!important}
+.xray-dashboard aside{width:168px!important;min-width:168px!important;padding:22px 13px 16px!important;border-right:1px solid #e0e7e0!important;background:#fff!important;box-shadow:none!important}
+.xray-dashboard .brand{gap:10px!important;margin:0 4px 30px!important;height:40px;justify-content:flex-start!important;font-size:19px!important;color:#132e22!important}
+.xray-dashboard .brand .badge{width:33px!important;height:33px!important;background:transparent!important;border:0!important;box-shadow:none!important;flex:none}
+.xray-dashboard .brand .badge img{width:100%;height:100%;object-fit:contain}.xray-dashboard .brand b,.xray-dashboard .brand span{display:inline!important}
+.xray-dashboard aside .grp{font-size:10px!important;letter-spacing:.1em;color:#95a399!important;margin:13px 12px 9px!important;font-weight:600}
+.xray-dashboard aside nav{display:flex;flex-direction:column;gap:7px}.xray-dashboard aside nav button{display:flex!important;width:100%!important;min-height:44px!important;padding:11px 12px!important;gap:10px!important;justify-content:flex-start!important;overflow:visible!important;font-size:13px!important;line-height:20px!important;white-space:nowrap!important;color:#52695b!important;border:0!important;background:transparent!important;border-radius:8px!important;text-indent:0!important;box-shadow:none!important}
+.xray-dashboard aside nav button svg{width:18px!important;height:18px!important;stroke-width:1.7;flex:none}
+.xray-dashboard aside nav button.on,.xray-dashboard aside nav button.active{color:#166b60!important;background:#e8f4ed!important;font-weight:650!important}
+.xray-dashboard aside nav button:hover{background:#f1f6f2!important}.xray-dashboard aside nav button::before,.xray-dashboard aside nav button::after{display:none!important}
+.xray-dashboard .side-foot{font-size:11px!important;color:#87998b!important;padding:14px 8px!important}
+.xray-dashboard .main{background:#f7f8f4!important}.xray-dashboard .topbar{height:62px!important;min-height:62px;background:#fff!important;border-bottom:1px solid #e2e8e0!important;padding:0 28px!important;box-shadow:none!important}
+.xray-dashboard .crumb{color:#7b8e80!important;font-family:var(--sans);font-size:12px}.xray-dashboard .crumb b{color:#304d39!important;font-weight:600}.xray-dashboard .top-status{color:#257657!important;background:#edf6ef!important;padding:4px 9px;border-radius:6px;font-size:11px}.xray-dashboard #clock{font-size:11px;color:#849587!important;margin-left:12px}
+.xray-dashboard .content{padding:24px 28px 40px!important;background:#f7f8f4!important}.xray-dashboard .content>section{max-width:1440px!important;width:100%;margin:0 auto}
+.xray-dashboard .page-h{margin:24px 0 22px!important;display:flex;gap:16px}.xray-dashboard h1{font-size:26px!important;letter-spacing:-.5px!important;line-height:1.35!important;font-weight:650!important;color:#172e23!important}
+.xray-dashboard .page-h p{font-size:13px!important;line-height:1.65!important;color:#6d7f70!important;margin-top:7px!important}
+.xray-dashboard .overview-toolbar{padding:0!important;margin:0 0 26px!important;display:flex;justify-content:space-between;align-items:center;gap:16px}.xray-dashboard .overview-source-filter select{min-width:160px}
+#overview #ov-summary.subpanel.on{padding:0!important;overflow:visible!important;border:0!important;background:transparent!important}
+#overview #ov-summary>.page-h{margin:0 0 24px!important}#overview #ov-summary>.page-h h1{font-size:26px!important;font-weight:650!important;margin:0!important}#overview #ov-summary>.page-h p{font-size:13px!important;max-width:100%;margin:9px 0 0!important;line-height:1.65!important}
+#overview #ov-summary .overview-simple{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;background:transparent!important}
+#overview #ov-summary .overview-simple>.kpi{display:grid!important;grid-template-columns:46px minmax(0,1fr)!important;grid-template-rows:22px 45px 0!important;column-gap:14px!important;row-gap:0!important;min-height:116px!important;padding:24px 18px!important;align-content:center;border-radius:0!important;border:0!important;border-top:1px solid #e1e8df!important;border-bottom:1px solid #e1e8df!important;background:#fff!important;box-shadow:none!important;overflow:hidden}
+#overview #ov-summary .overview-simple>.kpi:first-child{border-left:1px solid #e1e8df!important;border-radius:12px 0 0 12px!important}#overview #ov-summary .overview-simple>.kpi:nth-child(4){border-right:1px solid #e1e8df!important;border-radius:0 12px 12px 0!important}
+#overview #ov-summary .overview-simple>.kpi:not(:nth-child(4)){box-shadow:inset -1px 0 #edf1eb!important}
+#overview #ov-summary .overview-simple>.kpi .hall-stat-icon{grid-column:1;grid-row:1/3;width:46px!important;height:46px!important;padding:10px!important;border-radius:9px!important;background:#eef6f1!important;align-self:center;box-sizing:border-box}
+#overview #ov-summary .overview-simple>.kpi .lab{font-size:12px!important;line-height:20px!important;color:#6c7d70!important;grid-column:2;grid-row:1;white-space:nowrap}
+#overview #ov-summary .overview-simple>.kpi .val{grid-column:2;grid-row:2;font-size:36px!important;line-height:43px!important;font-weight:650!important;color:#185547!important;letter-spacing:-1px}
+#overview #ov-summary .overview-simple>.kpi .sub{display:none!important}.overview-simple-top{grid-column:1/-1!important;margin-top:22px!important;background:transparent!important;border:0!important;min-height:0!important}
+#overview .hall-of-fame,#overview #top{background:none!important;box-shadow:none!important;min-height:0!important;padding:0!important;position:static!important;height:auto!important}
+#overview #ov-summary .race-stage{display:block!important;min-height:0!important;background:none!important;margin:0!important;width:100%!important;position:static!important}
+#overview #ov-summary .race-table-card{padding:22px!important;background:#fff!important;border:1px solid #e1e8df!important;border-radius:12px!important;min-width:0;overflow:hidden}
+#overview #ov-summary .race-section-title{display:flex!important;position:static!important;margin:0 0 18px!important;padding:0!important}#overview #ov-summary .race-section-title h2{font-size:19px!important;font-weight:650!important;color:#1e3728!important}#overview #ov-summary .race-section-title p{font-size:12px!important;color:#89988c!important;margin-top:4px!important}
+#overview #ov-summary .race-table{display:block!important;width:100%!important;margin:0!important;position:static!important;padding:0!important;height:auto!important;transform:none!important;overflow-x:auto!important;background:none!important}
+#overview #ov-summary .race-head,#overview #ov-summary .race-row{display:grid!important;grid-template-columns:36px minmax(140px,1.3fr) minmax(110px,1fr) 75px 90px minmax(110px,1fr)!important;gap:12px!important;align-items:center!important;position:static!important;transform:none!important;min-width:650px!important;width:100%!important;padding:11px 12px!important;border:0!important;border-bottom:1px solid #edf1eb!important;border-radius:0!important;min-height:61px!important;background:#fff!important;color:#425d4a!important;box-shadow:none!important;font-size:13px!important}
+#overview #ov-summary .race-head{background:#f6f8f4!important;color:#718474!important;min-height:42px!important;font-size:11px!important;border-radius:7px!important;font-weight:500!important}
+#overview #ov-summary .race-row.race-first{background:#eaf5ef!important;border-radius:7px!important}#overview #ov-summary .race-row:hover{background:#f1f7f2!important}
+#overview #ov-summary .race-person,#overview #ov-summary .race-best{gap:9px!important;display:flex!important;min-width:0!important;align-items:center!important}#overview #ov-summary .race-person .logo,#overview #ov-summary .race-best .logo{width:32px!important;height:32px!important;border-radius:50%!important;border:1px solid #e0e8de!important;background:#eef5ee!important;flex:none}
+#overview #ov-summary .race-person-name,#overview #ov-summary .race-best b{font-size:13px!important;color:#2c4834!important;font-weight:600!important}#overview #ov-summary .race-person-name small{font-size:10px!important;font-weight:400!important;color:#8b998f!important}
+#overview #ov-summary .race-row-peak{font-size:20px!important;font-weight:650!important;color:#166b60!important;letter-spacing:-.4px}#overview #ov-summary .race-row-rank{font-size:13px!important;color:#7b8f7e!important}#overview #ov-summary .race-first .race-row-rank{color:#166b60!important;font-weight:700}
+#overview #ov-summary .race-row-sample,#overview #ov-summary .race-row-hit{font-size:13px!important;color:#4a6552!important;font-weight:500!important}#overview #ov-summary .race-empty{background:#fff!important;border:1px dashed #c7d9ca!important;color:#718473!important}
+.xray-dashboard .toolbar{gap:12px!important;padding:16px!important;background:#fff!important;border:1px solid #e2e9df!important;border-radius:10px!important;margin-bottom:18px!important}.xray-dashboard .toolbar label{color:#718372;font-size:12px;display:flex;align-items:center;gap:7px}
+.xray-dashboard .kv{gap:16px!important}.xray-dashboard .kv>label{color:#6b806d!important;font-size:12px}.xray-dashboard .settings-panel-head{border-bottom:1px solid #e5ebe2;padding-bottom:16px;margin-bottom:20px}
+.xray-dashboard .settings-status,.xray-dashboard .group-backfill-status{padding:11px 13px;border:1px solid #e3ebe1;border-radius:8px;background:#f6f9f4!important;color:#6a7f6b!important;line-height:1.6;font-size:12px}
+.xray-dashboard [class*=popover],.xray-dashboard .caller-popover{padding:18px}.xray-dashboard .caller-popover h3{color:#1a3c29}.xray-dashboard .caller-popover table{font-size:12px}.xray-dashboard .caller-popover th,.xray-dashboard .caller-popover td{padding:10px 8px}
+.xray-dashboard details>summary{color:#56705b;background:#f7faf5;border:1px solid #e0e8dc;border-radius:8px;padding:10px 12px;cursor:pointer}
+@media(max-width:1080px){.xray-dashboard aside{width:150px!important;min-width:150px!important;padding-inline:10px!important}.xray-dashboard .content{padding:20px!important}.xray-dashboard h1,#overview #ov-summary>.page-h h1{font-size:24px!important}#overview #ov-summary .overview-simple>.kpi{grid-template-columns:36px minmax(0,1fr)!important;column-gap:9px!important;padding:20px 12px!important}#overview #ov-summary .overview-simple>.kpi .hall-stat-icon{width:36px!important;height:36px!important;padding:8px!important}#overview #ov-summary .overview-simple>.kpi .val{font-size:30px!important}#overview #ov-summary .overview-simple>.kpi .lab{font-size:11px!important}}
+@media(max-width:780px){.xray-dashboard aside{width:64px!important;min-width:64px!important;padding:18px 8px!important}.xray-dashboard .brand{margin:0 7px 24px!important;font-size:0!important}.xray-dashboard .brand b,.xray-dashboard .brand span,.xray-dashboard .grp,.xray-dashboard .side-foot{display:none!important}.xray-dashboard aside nav button{font-size:0!important;padding:12px!important;gap:0!important}.xray-dashboard aside nav button svg{width:20px!important;height:20px!important}.xray-dashboard .content{padding:18px 16px!important}.xray-dashboard .topbar{padding:0 18px!important}#overview #ov-summary .overview-simple{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}#overview #ov-summary .overview-simple>.kpi{border:1px solid #e1e8df!important;border-radius:10px!important}#overview #ov-summary .race-table-card{padding:16px!important}.xray-dashboard .page-h{flex-wrap:wrap}.xray-dashboard .toolbar{flex-wrap:wrap!important}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+#overview #ov-summary .overview-simple-top{margin-top:22px!important}
+#overview #ov-summary>.page-h #ov-sub{color:#74816f!important;font-weight:400!important}
+
+.xray-dashboard :where(p,td,label,small,input,select,textarea,.dim,.hint,.module-note){font-weight:400!important}
+#overview #ov-summary .race-table-card,#overview #ov-summary .race-stage,#overview .hall-of-fame{filter:none!important;box-shadow:none!important}
+#overview .hall-of-fame::before,#overview .hall-of-fame::after{display:none!important}
+
+.xray-dashboard .setup p,.xray-dashboard .tg-card p{font-weight:400!important}.xray-dashboard .chart-tip,.xray-dashboard .work-status{background:#fff!important;color:var(--ink)!important;box-shadow:0 8px 24px #203b2c12!important}.xray-dashboard .svgc .grid-x{stroke:#e5ebe6}.xray-dashboard .svgc .zero,.xray-dashboard .svgc .chart-crosshair line{stroke:#a0b6a9}
+
+.xray-dashboard .settings-card input[type=password],.xray-dashboard .settings-card input[type=text]{width:100%!important;min-width:0!important}.xray-dashboard .settings-card>div{min-width:0}
+
+dialog{margin:auto;max-height:calc(100vh - 32px);overflow:auto;width:min(420px,calc(100vw - 32px))}.ca-correction-actions button[type=submit]{background:#166b60!important;border-color:#166b60!important;color:#fff!important}.ca-correction-dialog{inset:0}.xray-dashboard .iv-more-menu{box-shadow:0 8px 24px #203b2c12!important}
+
+#overview #ov-summary .overview-simple{margin-bottom:18px!important}
+/* Keep one layout model while the native window is resized. */
+.xray-dashboard .main{width:0!important;min-width:0!important;flex:1 1 0!important}
+.xray-dashboard.native .topbar{padding-right:150px!important}
+#overview #ov-summary .race-head,#overview #ov-summary .race-row{grid-template-areas:none!important;grid-auto-flow:column!important;height:auto!important}
+#overview #ov-summary .race-head>*,#overview #ov-summary .race-row>*{grid-area:auto!important;grid-row:auto!important;grid-column:auto!important;position:static!important}
+@media(max-width:780px){
+.xray-dashboard aside{position:relative!important;inset:auto!important;height:100vh!important;min-height:100vh!important;flex:none!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;border-top:0!important;z-index:3!important}
+.xray-dashboard aside nav{display:flex!important;flex:none!important;width:100%!important;flex-direction:column!important;gap:7px!important;align-items:stretch!important;justify-content:flex-start!important}
+.xray-dashboard aside nav:last-of-type{margin: auto 0 0!important;padding:0!important;border:0!important;flex:none!important;width:100%!important}
+.xray-dashboard aside nav button{width:100%!important;flex:none!important;min-height:44px!important;height:44px!important;justify-content:center!important;margin:0!important}
+.xray-dashboard aside .brand{display:flex!important;flex:none!important;height:36px!important}.xray-dashboard .content{padding-bottom:18px!important}
+}
+
+#overview #ov-summary .race-head,#overview #ov-summary .race-row{grid-template-rows:auto!important}#overview #ov-summary .race-person-name{display:block!important}
+
+#overview #ov-summary .overview-simple-top.hall-of-fame{margin:18px 0 0!important}

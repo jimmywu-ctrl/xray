@@ -1,0 +1,26 @@
+{
+  "name": "xray-next",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --import tsx src/main.mjs",
+    "test": "node --import tsx --test --test-concurrency=2 test/*.test.mjs test/*.test.cjs",
+    "desktop": "electron desktop/main.cjs"
+  },
+  "dependencies": {
+    "@mtcute/node": "0.32.2",
+    "better-sqlite3-multiple-ciphers": "13.0.3",
+    "bs58": "6.0.0",
+    "fzstd": "0.1.1",
+    "tsx": "4.23.12",
+    "ws": "8.21.3"
+  },
+  "devDependencies": {
+    "@electron/asar": "3.4.1",
+    "electron": "44.4.5"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  }
+}
