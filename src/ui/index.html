@@ -159,6 +159,13 @@
       </section>
     </div>
     </details><div id="telegram-panel"></div>
+    <form id="delivery-trace" class="card">
+      <h2>推送查询</h2>
+      <label>合约地址 <input name="address" placeholder="输入完整 CA" required maxlength="44"></label>
+      <label>来源 <select name="group"><option value="">全部来源</option></select></label>
+      <button type="submit" class="ghost">查询</button>
+      <output aria-live="polite" style="display:block;white-space:pre-line"></output>
+    </form>
     <div class="monitor-group-list" id="glist" role="tabpanel"></div>
   </section>
 
@@ -220,8 +227,8 @@
   </div>
 </div>
 
-<script src="/ui-bridge.js?v=20261103-epoch"></script><script src="/assets/backfill.js"></script>
-<script src="/assets/sources.js"></script>
+<script src="/ui-bridge.js?v=20261118-delivery"></script><script src="/assets/backfill.js"></script>
+<script src="/assets/sources.js?v=20261118-delivery"></script>
 <script src="/assets/statistics.js?v=20261006-provider-cleanup"></script>
 <script src="/assets/repair-progress.js?v=20261103-trim"></script><script src="/assets/market.js"></script><script src="/assets/inventory.js?v=20261103-trim"></script>
 <script src="/assets/dashboard.js?v=20261103-controls"></script><script type="module" src="/modules/index.js?v=20261102-visible-module"></script>

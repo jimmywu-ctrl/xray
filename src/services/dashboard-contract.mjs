@@ -283,6 +283,42 @@ export class DashboardContract {
     if(state!==this.lastHealthState){this.lastHealthState=state;this.repo.diagnostic('task_health',null,JSON.stringify(result));}
     return result;
   }
+  deliveryTrace(rawAddress, group) {
+    const raw = String(rawAddress ?? '').trim();
+    const evm = /^0x[a-f0-9]{40}$/i.test(raw);
+    if (!evm && !/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(raw)) {
+      throw Error('请输入完整 CA');
+    }
+    const address = evm ? raw.toLowerCase() : raw;
+    const settings = this.repo.setting('monitor', { wechat: [], telegram: [] });
+    const watched = new Set([...settings.wechat, ...settings.telegram.map(chat => 'tg:' + chat.peerId)]);
+    const messages = this.repo.all(`
+      SELECT DISTINCT m.source, m.channel, m.message, m.active, m.payload
+      FROM mentions a JOIN messages m USING(source, channel, message)
+      WHERE a.address=? AND (?='' OR m.channel=?)
+      ORDER BY m.revision DESC LIMIT 30`, address, group, group);
+    const entries = messages.map(message => {
+      const payload = JSON.parse(message.payload);
+      const stream = JSON.stringify([message.source, message.channel, message.message]);
+      const prefix = JSON.stringify([stream, address]).slice(0, -1) + ',';
+      const receipt = this.repo.get(
+        'SELECT max(at) AS at FROM delivery_receipts WHERE id>=? AND id<?',
+        prefix, prefix.slice(0, -1) + '-',
+      );
+      const pending = this.repo.get(
+        'SELECT attempts FROM delivery_outbox WHERE id>=? AND id<? LIMIT 1',
+        prefix, prefix.slice(0, -1) + '-',
+      );
+      const status = receipt?.at ? 'sent'
+        : pending ? (pending.attempts ? 'retrying' : 'queued')
+        : !message.active || !(payload.addresses ?? payload.addrs ?? []).includes(address) ? 'inactive'
+        : payload.backfill ? 'backfilled'
+        : 'no_receipt';
+      return { source: message.source, at: payload.at ?? payload.time, status, sentAt: receipt?.at ?? null };
+    });
+    return { entries, groupWatched: group ? watched.has(group) : null };
+  }
+
   async handle(req,url,body) {
     if(url.pathname==='/api/overlay/logo-failed'&&req.method==='POST')return this.market.reportLogoFailure(body.chain,body.address,body.logo);
     if(url.pathname==='/api/market-data/repair'&&req.method==='GET')return this.repairSnapshot();
@@ -423,6 +459,7 @@ export class DashboardContract {
       let json;try{json=JSON.parse(response.body);}catch{return {provider,http:response.status,error:'返回非JSON内容',detail:response.error};}
       return {provider,http:response.status,routeChain,mode:kline?'kline':'token',payload:json};
     }
+    if(p==='/api/delivery-trace' && method==='GET') return this.deliveryTrace(url.searchParams.get('address'), url.searchParams.get('group') ?? '');
     if(p==='/api/telegram-bot/status')return this.collectors.publisher.status();
     if(p==='/api/telegram-bot/config'&&method==='POST')return this.collectors.publisher.configure(body);
     if(p==='/api/telegram-bot/check'&&method==='POST')return this.collectors.publisher.checkConnection();

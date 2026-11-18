@@ -113,3 +113,43 @@ function renderSetup(box) {
   }
 }
 // END renderSetup
+
+const deliveryTraceForm = document.getElementById('delivery-trace');
+if (deliveryTraceForm) {
+  const groupSelect = deliveryTraceForm.elements.group;
+  const output = deliveryTraceForm.querySelector('output');
+  groupSelect.addEventListener('focus', () => {
+    const selected = groupSelect.value;
+    groupSelect.replaceChildren(new Option('全部来源', ''));
+    for (const group of gsrc.groups ?? []) {
+      groupSelect.add(new Option(group.displayName || group.username, group.username));
+    }
+    if ([...groupSelect.options].some(option => option.value === selected)) groupSelect.value = selected;
+  });
+  deliveryTraceForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const button = deliveryTraceForm.querySelector('button');
+    button.disabled = true;
+    output.textContent = '查询中…';
+    try {
+      const params = new URLSearchParams(new FormData(deliveryTraceForm));
+      const result = await api('/api/delivery-trace?' + params);
+      const labels = {
+        sent: '已有 Bot 转发回执', retrying: '转发失败，等待重试', queued: '等待转发',
+        inactive: '消息已撤回或移除该地址', backfilled: '已回读入库，未触发实时转发',
+        no_receipt: '已入库，暂无转发回执',
+      };
+      const lines = result.entries.map(entry =>
+        new Date(entry.at * 1000).toLocaleString() + ' · ' +
+        (entry.source === 'wechat' ? '微信' : 'Telegram') + ' · ' + labels[entry.status],
+      );
+      if (result.groupWatched === false) lines.unshift('所选群当前未开启监控。');
+      if (!result.entries.length) lines.push('没有找到这条 CA 的入库记录。');
+      output.textContent = lines.join('\n');
+    } catch (error) {
+      output.textContent = error.message;
+    } finally {
+      button.disabled = false;
+    }
+  });
+}

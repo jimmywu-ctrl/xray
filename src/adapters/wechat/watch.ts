@@ -114,7 +114,11 @@ export class WechatWatcher extends WechatReader {
   private reconcileOffsets = new Map<string, number>();
 
   get ready(): boolean {
-    return !this.stopped && this.shards.length > 0 && this.lastReadAt > 0 && Date.now() - this.lastReadAt < 30_000 && !this.health().staleDatabase;
+    return this.isReady(this.health());
+  }
+
+  isReady(health: ReturnType<WechatWatcher["health"]>): boolean {
+    return !this.stopped && this.shards.length > 0 && this.lastReadAt > 0 && Date.now() - this.lastReadAt < 30_000 && !health.staleDatabase;
   }
 
   health() {

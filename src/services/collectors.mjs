@@ -47,9 +47,10 @@ export class Collectors {
     }, async ({call,target})=>{
       if(this.publisher.status().target!==target||!this.publisher.canPublish(call))throw Error('转发配置暂停或已变更，保留待发送记录');
       const previous=repo.get('SELECT active,payload FROM messages WHERE source=? AND channel=? AND message=?',call.groupName.startsWith('tg:')?'telegram':'wechat',call.groupName,call.sourceId);
-      if(!previous?.active||!JSON.parse(previous.payload).addresses?.includes(call.address))return;
+      if(!previous?.active||!JSON.parse(previous.payload).addresses?.includes(call.address))return false;
       const sent=await this.publisher.publish(call);
       if(!sent&&!this.publisher.isOwnTelegramSender(call.telegramSenderId))throw Error('Delivery cancelled before sending');
+      return sent;
     },path.join(DATA_DIR,'delivery-inbox-fallback.jsonl'));
     const accept = m => {
       const historical=m.backfill&&this.backfillBounds[m.group?.startsWith('tg:')?'telegram':'wechat'];

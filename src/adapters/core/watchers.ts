@@ -52,13 +52,17 @@ export class WatchManager {
   }
 
   status() {
+    const details = Array.from(this.running, ([group, watcher]) => {
+      const health = watcher.health();
+      return { group, ready: watcher.isReady(health), ...health };
+    });
     return {
       selected: this.selectedGroupCount,
       running: this.watchedGroupCount,
-      ready: this.readyGroupCount,
+      ready: details.filter(entry => entry.ready && this.wantedGroups.has(entry.group)).length,
       retrying: this.retryTimers.size,
-      staleDatabases: [...this.running.values()].filter(w => w.health().staleDatabase).length,
-      details: [...this.running.entries()].map(([group,w]) => ({ group, ready: w.ready, ...w.health() })),
+      staleDatabases: details.filter(entry => entry.staleDatabase).length,
+      details,
     };
   }
 

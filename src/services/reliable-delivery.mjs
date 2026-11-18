@@ -71,9 +71,11 @@ export class ReliableDelivery {
     const row=this.repo.get('SELECT * FROM delivery_outbox WHERE due<=? ORDER BY rowid LIMIT 1',now());if(!row)return;
     this.outboxFlight=(async()=>{
       try{
-        await this.sendPush(JSON.parse(row.payload));
+        const sent = await this.sendPush(JSON.parse(row.payload));
         this.repo.transaction(()=>{if(!this.repo.get('SELECT 1 FROM delivery_outbox WHERE id=?',row.id))return;
-          this.repo.run('INSERT OR IGNORE INTO delivery_receipts VALUES(?,?)',row.id,now());this.repo.run('DELETE FROM delivery_outbox WHERE id=?',row.id);});
+          if (sent !== false) this.repo.run('INSERT OR IGNORE INTO delivery_receipts VALUES(?,?)', row.id, now());
+          this.repo.run('DELETE FROM delivery_outbox WHERE id=?', row.id);
+        });
       }catch(error){try{if(!this.stopped)this.repo.run('UPDATE delivery_outbox SET attempts=attempts+1,due=?,last_error=? WHERE id=?',now()+Math.min(300,2**Math.min(row.attempts,8)),String(error.message).slice(0,500),row.id);}catch{}}
     })().finally(()=>{this.outboxFlight=null;});
     return this.outboxFlight;

@@ -36,7 +36,7 @@
       emitConnected();
       if(location.pathname==='/overlay')window.xray?.setOpacity(current.settings.opacity);
     });
-    runAuxiliary('health',async()=>{
+    if (location.pathname !== '/overlay') runAuxiliary('health',async()=>{
     try{const h=await request('/api/task-health'),alert=['stalled','rate-limited','timeout','failed'].includes(h.state),el=document.getElementById('task-health');
       window.dispatchEvent(new CustomEvent('xray:health',{detail:h}));
       const detail=`${h.label} · 处理中 ${h.running} · 排队 ${h.queued} · 等待重试 ${h.backoff}`+(h.completed10m!=null?` · 10分钟完成 ${h.completed10m}`:'')+(h.scheduled?` · 已排期 ${h.scheduled}`:'');
