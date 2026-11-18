@@ -61,8 +61,22 @@ export class ReliableDelivery {
   queuePush(stream,address,call,target) {
     const id=JSON.stringify([stream,address,target]);
     if(this.repo.get('SELECT 1 FROM delivery_receipts WHERE id=?',id))return;
-    this.repo.run('INSERT OR IGNORE INTO delivery_outbox(id,stream,address,payload,due) VALUES(?,?,?,?,?)',id,stream,address,JSON.stringify({call,target}),now());
+    const inserted = this.repo.run(
+      'INSERT OR IGNORE INTO delivery_outbox(id,stream,address,payload,due) VALUES(?,?,?,?,?)',
+      id, stream, address, JSON.stringify({call,target}), now(),
+    );
+    if (inserted.changes) this.wakeOutbox();
   }
+  wakeOutbox() {
+    if (this.stopped || this.outboxWake) return;
+    // The producer can be inside a SQLite transaction. Read only after it returns.
+    this.outboxWake = setImmediate(() => {
+      this.outboxWake = null;
+      try { void this.drainOutbox()?.catch(() => {}); } catch {}
+    });
+    this.outboxWake.unref?.();
+  }
+
   cancelPushes(stream,keep=[]) {
     for(const row of this.repo.all('SELECT id,address FROM delivery_outbox WHERE stream=?',stream))if(!keep.includes(row.address))this.repo.run('DELETE FROM delivery_outbox WHERE id=?',row.id);
   }
@@ -77,10 +91,10 @@ export class ReliableDelivery {
           this.repo.run('DELETE FROM delivery_outbox WHERE id=?', row.id);
         });
       }catch(error){try{if(!this.stopped)this.repo.run('UPDATE delivery_outbox SET attempts=attempts+1,due=?,last_error=? WHERE id=?',now()+Math.min(300,2**Math.min(row.attempts,8)),String(error.message).slice(0,500),row.id);}catch{}}
-    })().finally(()=>{this.outboxFlight=null;});
+    })().finally(()=>{this.outboxFlight=null;this.wakeOutbox();});
     return this.outboxFlight;
   }
   start(){this.stopped=false;this.drainInbox();this.inboxTimer=setInterval(()=>this.drainInbox(),250);this.inboxTimer.unref?.();this.outboxTimer=setInterval(()=>{try{void this.drainOutbox()?.catch(()=>{});}catch{}},1000);this.outboxTimer.unref?.();}
-  async stop(){this.stopped=true;clearInterval(this.inboxTimer);clearInterval(this.outboxTimer);await this.outboxFlight;}
+  async stop(){this.stopped=true;clearImmediate(this.outboxWake);this.outboxWake=null;clearInterval(this.inboxTimer);clearInterval(this.outboxTimer);await this.outboxFlight;}
   status(){return {inbox:this.repo.get('SELECT COUNT(*) n FROM delivery_inbox').n,outbox:this.repo.get('SELECT COUNT(*) n FROM delivery_outbox').n};}
 }

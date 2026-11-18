@@ -306,7 +306,7 @@ app.whenReady().then(async () => {
         electron: process.versions.electron,
         node: process.versions.node,
         chrome: process.versions.chrome,
-        desktopBuild: '20261118-delivery-trace',
+        desktopBuild: '20261118-fast-delivery',
       },
       null,
       2,

@@ -70,7 +70,20 @@
   const overlayPage=location.pathname==='/overlay',refreshFloor=overlayPage?50:1000,refreshFallback=overlayPage?1000:2000;
   const scheduleRefresh=urgent=>{if(urgent&&overlayPage){clearTimeout(trailingRefresh);trailingRefresh=null;lastRefreshAt=Date.now();void refresh(true);return;}const wait=refreshFloor-(Date.now()-lastRefreshAt);if(wait<=0){clearTimeout(trailingRefresh);trailingRefresh=null;lastRefreshAt=Date.now();void refresh();}else if(!trailingRefresh)trailingRefresh=setTimeout(()=>{trailingRefresh=null;lastRefreshAt=Date.now();void refresh();},wait);};
   document.addEventListener('visibilitychange',()=>{if(!document.hidden){invalidateAuxiliary();void refresh();}});
-  const events=new EventSource('/api/events');events.onmessage=async event=>{let urgent=false,wake=false;try{const data=JSON.parse(event.data);urgent=data.urgent===true;wake=data.wake===true;}catch{}if(wake&&overlayPage){try{await window.xray?.wakeOverlayForUrgent?.();}catch{}}scheduleRefresh(urgent);};events.onerror=()=>{lastStatus='';emit('status',{link:'reconnecting'});};events.onopen=()=>{lastStatus='';void refresh();};setInterval(scheduleRefresh,refreshFallback);void refresh();
+  const events=new EventSource('/api/events');events.onmessage=async event=>{let urgent=false,wake=false;try{const data=JSON.parse(event.data);urgent=data.urgent===true;wake=data.wake===true;}catch{}if(wake&&overlayPage){try{await window.xray?.wakeOverlayForUrgent?.();}catch{}}scheduleRefresh(urgent);};events.onerror=()=>{lastStatus='';emit('status',{link:'reconnecting'});};events.onopen=()=>{lastStatus='';void refresh();};let fallbackTimer, fallbackInterval;
+  function configureFallback(connected) {
+    const interval = overlayPage && connected ? 3000 : refreshFallback;
+    if (interval === fallbackInterval) return;
+    clearInterval(fallbackTimer);
+    fallbackInterval = interval;
+    fallbackTimer = setInterval(() => scheduleRefresh(false), interval);
+  }
+  const onEventError = events.onerror;
+  const onEventOpen = events.onopen;
+  events.onerror = () => { configureFallback(false); onEventError(); };
+  events.onopen = () => { configureFallback(true); onEventOpen(); };
+  configureFallback(false);
+  void refresh();
   document.addEventListener('DOMContentLoaded',()=>{const page=new URLSearchParams(location.search).get('page');if(page&&window.showTab)window.showTab(page);});
   document.addEventListener('click',e=>{const a=e.target.closest?.('a[target="_blank"]');if(a&&window.xray?.openUrl&&a.href.startsWith('https://')){e.preventDefault();window.xray.openUrl(a.href);}});
 })();

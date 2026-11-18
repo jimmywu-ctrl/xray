@@ -245,7 +245,14 @@ export class TelegramBotPublisher {
   }
 
   canPublish(call: CapturedCa): boolean {
-    return this.config.enabled && normalizedGroup(call.group)!==normalizedGroup(this.config.target) && isAllowedByTelegramForwardFilter(call,this.config.filters);
+    return this.publishSkipReason(call) === null;
+  }
+
+  publishSkipReason(call: CapturedCa): string | null {
+    if (!this.config.enabled) return 'bot_disabled';
+    if (normalizedGroup(call.group) === normalizedGroup(this.config.target)) return 'same_target';
+    if (!isAllowedByTelegramForwardFilter(call, this.config.filters)) return 'filtered';
+    return null;
   }
   async publish(call: CapturedCa): Promise<boolean> {
     const config = this.config;

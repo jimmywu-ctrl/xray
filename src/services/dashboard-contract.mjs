@@ -313,7 +313,10 @@ export class DashboardContract {
         : pending ? (pending.attempts ? 'retrying' : 'queued')
         : !message.active || !(payload.addresses ?? payload.addrs ?? []).includes(address) ? 'inactive'
         : payload.backfill ? 'backfilled'
-        : 'no_receipt';
+        : this.repo.get(
+          "SELECT detail FROM diagnostics WHERE category='delivery_skip' AND token=? ORDER BY id DESC LIMIT 1",
+          JSON.stringify([stream, address]),
+        )?.detail?.split('（')[0] ?? 'no_receipt';
       return { source: message.source, at: payload.at ?? payload.time, status, sentAt: receipt?.at ?? null };
     });
     return { entries, groupWatched: group ? watched.has(group) : null };

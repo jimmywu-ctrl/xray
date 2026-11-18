@@ -138,6 +138,10 @@ if (deliveryTraceForm) {
         sent: '已有 Bot 转发回执', retrying: '转发失败，等待重试', queued: '等待转发',
         inactive: '消息已撤回或移除该地址', backfilled: '已回读入库，未触发实时转发',
         no_receipt: '已入库，暂无转发回执',
+        bot_disabled: '已入库，Bot 转发未开启',
+        same_target: '来源就是转发目标，已避免循环转发',
+        filtered: '来源或成员不符合 Bot 转发规则',
+        bot_message: '机器人消息，按规则跳过转发',
       };
       const lines = result.entries.map(entry =>
         new Date(entry.at * 1000).toLocaleString() + ' · ' +

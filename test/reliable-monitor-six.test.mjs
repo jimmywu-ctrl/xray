@@ -105,7 +105,7 @@ test('urgent SSE aborts a stalled fetch immediately without marking disconnected
  const document={hidden:false,addEventListener(){},getElementById(){return null;}};
  const window={xray:{onOverlayMode(){},wakeOverlayForUrgent:async()=>{wakes++;}},dispatchEvent(){}};
  const context={window,document,location:{pathname:'/overlay'},AbortController,AbortSignal,Date,Map,Set,URLSearchParams,
- CustomEvent:class{},setTimeout,clearTimeout,setInterval(){},EventSource:class{constructor(){events=this;}},
+ CustomEvent:class{},setTimeout,clearTimeout,setInterval(){},clearInterval(){},EventSource:class{constructor(){events=this;}},
  fetch:(url,options)=>url.startsWith('/api/token-updates')?new Promise((resolve,reject)=>{pending.push({resolve,options});options.signal.addEventListener('abort',()=>reject(Error('aborted')));}):Promise.resolve({ok:true,json:async()=>({settings:{monitor:{wechat:[],telegram:[]},opacity:1}})})};
  vm.runInNewContext(fs.readFileSync(new URL('../src/ui/ui-bridge.js',import.meta.url),'utf8'),context);
  window.fomomo.onStatus(s=>statuses.push(s));window.fomomo.onState(()=>{});assert.equal(pending.length,1);

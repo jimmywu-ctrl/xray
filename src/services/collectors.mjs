@@ -32,12 +32,17 @@ export class Collectors {
         const current=['delete','retract'].includes(m.messageEvent)?[]:event.addresses;
         if(applied==='applied'){
           this.delivery.cancelPushes(stream,current);
-          if(m._deliveryLive&&!event.isBot&&['create','edit'].includes(m.messageEvent||'create')){
+          if(m._deliveryLive&&['create','edit'].includes(m.messageEvent||'create')){
             const earlier=prior?.addresses??prior?.addrs??[];
             for(const address of event.addresses.filter(a=>!earlier.includes(a))){
               const t=repo.tokenByAddress(address);
               const call={address,chain:t?.chain==='?'?null:t?.chain??m.chainHint,symbol:t?.symbol??null,mc:t?.baseline?.mc??null,sender:m.sender,senderId:m.senderId,telegramSenderId:source==='telegram'?m.senderId??null:null,group:m.group,groupName:m.group,time:m.time,sourceId:m.sourceId};
-              if(this.publisher.canPublish(call))this.delivery.queuePush(stream,address,call,this.publisher.status().target);
+              if (!event.isBot && this.publisher.canPublish(call)) {
+                this.delivery.queuePush(stream, address, call, this.publisher.status().target);
+              } else {
+                repo.diagnostic('delivery_skip', JSON.stringify([stream, address]),
+                  event.isBot ? 'bot_message' : this.publisher.publishSkipReason(call) ?? 'no_receipt');
+              }
             }
           }
           if(['delete','retract'].includes(m.messageEvent))this.publisher.cancelMessage(m.group.replace(/^tg:/,''),m.sourceId);
