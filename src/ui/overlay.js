@@ -939,7 +939,11 @@
     var start = Math.max(0, Math.floor(scrollTop / VIRTUAL_ROW_HEIGHT) - VIRTUAL_OVERSCAN);
     var count = Math.ceil((els.list.scrollTop % VIRTUAL_ROW_HEIGHT + els.list.clientHeight) / VIRTUAL_ROW_HEIGHT) + VIRTUAL_OVERSCAN * 2;
     var end = Math.min(total, start + count);
-    if (!force && start === state.virtualStart && end === state.virtualEnd) return;
+    if (!force && start === state.virtualStart && end === state.virtualEnd) {
+      // The viewport can reveal an overscan row without changing the mounted range.
+      reportVisibleLatencyTraces();
+      return;
+    }
 
     var nodes = [];
     if (start > 0) {
